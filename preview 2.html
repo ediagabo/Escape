@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Escape Ergo - Fase 4</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    overflow:hidden;
+    background:#dff2d9;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    width:100%;
+    height:90px;
+    background:linear-gradient(90deg,#0b3b20,#106b38);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    color:white;
+    box-shadow:0 3px 20px rgba(0,0,0,0.15);
+}
+
+.logo h1{
+    font-size:3rem;
+    color:#7fffbc;
+    font-weight:800;
+}
+
+.logo p{
+    color:#ffd65f;
+    font-weight:700;
+}
+
+.timer{
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:14px 24px;
+    border-radius:18px;
+    font-size:1.8rem;
+    font-weight:800;
+}
+
+/* ================= LAYOUT ================= */
+
+.main{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    height:calc(100vh - 90px);
+}
+
+/* ================= CENÁRIO ================= */
+
+.scene{
+    position:relative;
+    background:
+    linear-gradient(
+        180deg,
+        #dff2d9 0%,
+        #edf7ea 100%
+    );
+    overflow:hidden;
+}
+
+/* chão */
+
+.floor{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:220px;
+    background:
+    linear-gradient(
+        90deg,
+        #d7c3a5,
+        #f2e4d1
+    );
+}
+
+/* janela */
+
+.window{
+    position:absolute;
+    left:40px;
+    top:40px;
+    width:280px;
+    height:180px;
+    border-radius:20px;
+    background:
+    linear-gradient(
+        180deg,
+        #d3efff,
+        #f5fcff
+    );
+
+    box-shadow:
+    inset 0 0 0 8px rgba(255,255,255,0.8),
+    0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* planta */
+
+.plant{
+    position:absolute;
+    left:40px;
+    bottom:140px;
+}
+
+.leaf{
+    width:95px;
+    height:95px;
+    background:#3ec46d;
+    border-radius:50%;
+}
+
+.pot{
+    width:60px;
+    height:50px;
+    background:#76461f;
+    margin:auto;
+}
+
+/* quadro */
+
+.frame{
+    position:absolute;
+    right:400px;
+    top:120px;
+    width:180px;
+    height:120px;
+    background:white;
+    border:8px solid #444;
+    border-radius:10px;
+}
+
+/* café */
+
+.coffee{
+    width:40px;
+    height:50px;
+    background:#0b6d3f;
+    border-radius:0 0 8px 8px;
+    position:absolute;
+    left:40%;
+    top:430px;
+}
+
+.coffee::after{
+    content:'';
+    width:14px;
+    height:18px;
+    border:4px solid #0b6d3f;
+    border-left:none;
+    border-radius:0 10px 10px 0;
+    position:absolute;
+    right:-12px;
+    top:8px;
+}
+
+/* ================= MESA ================= */
+
+.desk{
+
+    position:absolute;
+
+    width:700px;
+    height:28px;
+
+    background:
+    linear-gradient(
+        180deg,
+        #b8773d,
+        #8a5527
+    );
+
+    left:50%;
+    top:480px;
+
+    transform:translateX(-50%);
+
+    border-radius:16px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+.desk::before,
+.desk::after{
+    content:'';
+    position:absolute;
+    width:26px;
+    height:260px;
+    background:#303030;
+    top:20px;
+}
+
+.desk::before{
+    left:35px;
+}
+
+.desk::after{
+    right:35px;
+}
+
+/* ================= MONITOR ================= */
+
+.monitor{
+    position:absolute;
+    left:63%;
+    top:250px;
+    transform:translateX(-50%);
+    width:220px;
+    height:180px;
+    cursor:pointer;
+    z-index:50;
+    transition:0.6s;
+}
+
+.screen{
+    width:220px;
+    height:130px;
+    background:#101010;
+    border:10px solid #2d2d2d;
+    border-radius:18px;
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,0.35),
+    inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+.monitor-neck{
+    width:24px;
+    height:48px;
+    background:#707070;
+    margin:auto;
+    border-radius:8px;
+}
+
+.monitor-base{
+    width:120px;
+    height:16px;
+    background:#707070;
+    margin:auto;
+    border-radius:20px;
+}
+
+/* teclado */
+
+.keyboard{
+    width:190px;
+    height:24px;
+    background:#333;
+    border-radius:8px;
+    position:absolute;
+    left:60%;
+    top:455px;
+    transform:translateX(-50%);
+}
+
+/* mouse */
+
+.mouse{
+    width:34px;
+    height:44px;
+    background:#444;
+    border-radius:18px;
+    position:absolute;
+    left:68%;
+    top:440px;
+}
+
+/* cadeira */
+
+.chair{
+    position:absolute;
+    left:50%;
+    bottom:130px;
+    transform:translateX(-50%);
+    width:240px;
+    height:240px;
+    transition:0.6s;
+    cursor:pointer;
+    z-index:20;
+}
+
+.back{
+    width:28px;
+    height:130px;
+    background:#1976ff;
+    position:absolute;
+    left:40px;
+    bottom:100px;
+    border-radius:18px;
+}
+
+.seat{
+    width:150px;
+    height:26px;
+    background:#1976ff;
+    position:absolute;
+    left:50px;
+    bottom:92px;
+    border-radius:18px;
+}
+
+.support{
+    width:18px;
+    height:100px;
+    background:#666;
+    position:absolute;
+    left:118px;
+    bottom:0;
+}
+
+/* avatar */
+
+.avatar{
+    width:340px;
+    height:460px;
+    position:absolute;
+    left:50%;
+    bottom:80px;
+    transform:translateX(-50%);
+    transition:0.6s;
+}
+
+/* cabeça */
+
+.head{
+    width:78px;
+    height:78px;
+    background:#efc08f;
+    border-radius:50%;
+    position:absolute;
+    top:0;
+    left:120px;
+}
+
+/* tronco */
+
+.body{
+    width:34px;
+    height:150px;
+    background:#1e1e1e;
+    position:absolute;
+    top:72px;
+    left:145px;
+    border-radius:20px;
+    transform:rotate(18deg);
+    transform-origin:top;
+    transition:0.6s;
+    cursor:pointer;
+}
+
+/* braço */
+
+.arm{
+    width:90px;
+    height:18px;
+    background:#efc08f;
+    border-radius:20px;
+    position:absolute;
+    top:145px;
+    left:165px;
+    transform:rotate(15deg);
+    transition:0.6s;
+}
+
+/* antebraço */
+
+.forearm{
+    width:85px;
+    height:18px;
+    background:#efc08f;
+    border-radius:20px;
+    position:absolute;
+    top:168px;
+    left:228px;
+    transform:rotate(42deg);
+    transition:0.6s;
+    cursor:pointer;
+}
+
+/* pernas */
+
+.leg1,.leg2{
+    width:24px;
+    height:130px;
+    background:#1e1e1e;
+    border-radius:20px;
+    position:absolute;
+    top:250px;
+}
+
+.leg1{ left:130px; }
+.leg2{ left:168px; }
+
+/* ================= PAINEL ================= */
+
+.panel{
+    background:#f5f7f3;
+    border-left:1px solid rgba(0,0,0,0.08);
+    padding:22px;
+    overflow:auto;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:22px;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.06);
+}
+
+.card h3{
+    color:#0b6d3f;
+    margin-bottom:15px;
+    font-size:1.5rem;
+}
+
+.item{
+    margin-bottom:12px;
+    font-size:1.05rem;
+    font-weight:700;
+}
+
+.error{
+    color:#d92d2d;
+}
+
+.success{
+    color:#0e9f52;
+}
+
+.counter{
+    margin-top:15px;
+    font-size:1.2rem;
+    font-weight:800;
+}
+
+/* botões */
+
+.btn{
+    width:100%;
+    border:none;
+    padding:16px;
+    margin-top:12px;
+    border-radius:14px;
+    background:#0cb86b;
+    color:white;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn:hover{
+    transform:scale(1.02);
+}
+
+/* popup */
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.popup-content{
+    width:90%;
+    max-width:720px;
+    background:white;
+    border-radius:24px;
+    padding:40px;
+    text-align:center;
+}
+
+.popup h2{
+    color:#0b6d3f;
+    margin-bottom:20px;
+    font-size:2rem;
+}
+
+.win{
+    font-size:6rem;
+}
+
+.final-time{
+    font-size:2rem;
+    color:#d59c00;
+    margin-top:20px;
+    font-weight:800;
+}
+
+.feedback{
+    background:#eef8ef;
+    border-radius:16px;
+    padding:18px;
+    margin-top:25px;
+    text-align:left;
+}
+
+.feedback li{
+    margin-bottom:12px;
+}
+
+.hidden{
+    visibility:hidden;
+}
+
+@media(max-width:1200px){
+
+    .main{
+        grid-template-columns:1fr;
+    }
+
+    body{
+        overflow:auto;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+    <div class="logo">
+
+        <h1>ESCAPE ERGO</h1>
+
+        <p>FASE 4 — Ergonomia Inteligente</p>
+
+    </div>
+
+    <div class="timer">
+
+        ⏱ <span id="timer">00:00</span>
+
+    </div>
+
+</div>
+
+<div class="main">
+
+    <!-- CENÁRIO -->
+
+    <div class="scene">
+
+        <!-- PEGADINHAS -->
+
+        <div class="window"></div>
+
+        <div class="plant">
+            <div class="leaf"></div>
+            <div class="pot"></div>
+        </div>
+
+        <div class="frame"></div>
+
+        <div class="coffee"></div>
+
+        <!-- monitor -->
+
+        <div
+        class="monitor"
+        id="monitor"
+        onclick="identify('monitor')">
+
+            <div class="screen"></div>
+
+            <div class="monitor-neck"></div>
+
+            <div class="monitor-base"></div>
+
+        </div>
+
+        <!-- MESA -->
+
+        <div class="desk"></div>
+
+        <!-- itens corretos -->
+
+        <div class="keyboard"></div>
+
+        <div class="mouse"></div>
+
+        <!-- cadeira -->
+
+        <div
+        class="chair"
+        id="chair"
+        onclick="identify('chair')">
+
+            <div class="back"></div>
+
+            <div class="seat"></div>
+
+            <div class="support"></div>
+
+        </div>
+
+        <!-- avatar -->
+
+        <div class="avatar" id="avatar">
+
+            <div class="head"></div>
+
+            <!-- erro -->
+
+            <div
+            class="body"
+            id="body"
+            onclick="identify('posture')"></div>
+
+            <div class="arm" id="arm"></div>
+
+            <!-- erro -->
+
+            <div
+            class="forearm"
+            id="forearm"
+            onclick="identify('wrist')"></div>
+
+            <div class="leg1"></div>
+            <div class="leg2"></div>
+
+        </div>
+
+        <div class="floor"></div>
+
+    </div>
+
+    <!-- PAINEL -->
+
+    <div class="panel">
+
+        <div class="card">
+
+            <h3>🎯 Objetivo</h3>
+
+            <p>
+
+                Clique diretamente nos erros ergonômicos escondidos no cenário.
+
+                ⚠️ Atenção:
+                Existem itens corretos misturados para confundir a equipe.
+
+            
+                Os ajustes só serão liberados após encontrar TODOS os erros.
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🔍 Erros Identificados</h3>
+
+            <div id="status-monitor" class="item hidden">
+                ✔ Monitor baixo identificado
+            </div>
+
+            <div id="status-posture" class="item hidden">
+                ✔ Coluna torta identificada
+            </div>
+
+            <div id="status-wrist" class="item hidden">
+                ✔ Punho dobrado identificado
+            </div>
+
+            <div id="status-chair" class="item hidden">
+                ✔ Ajuste incorreto da cadeira identificado
+            </div>
+
+            <div class="counter" id="counter">
+                0 / 4 erros encontrados
+            </div>
+
+        </div>
+
+        <!-- AJUSTES -->
+
+        <div
+        class="card"
+        id="adjustments"
+        style="display:none;">
+
+            <h3>🛠 Ajustes</h3>
+
+            <button class="btn" onclick="fixMonitor()">
+                🖥 Ajustar Monitor
+            </button>
+
+            <button class="btn" onclick="fixChair()">
+                🪑 Corrigir Ajuste da Cadeira
+            </button>
+
+            <button class="btn" onclick="fixPosture()">
+                🧍 Corrigir Postura
+            </button>
+
+            <button class="btn" onclick="fixArms()">
+                ⌨ Apoiar Braços e Punhos
+            </button>
+
+            <button class="btn" onclick="finishGame()">
+                ✅ Finalizar Escape Ergo
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+    <div class="popup-content">
+
+        <div class="win">🏆</div>
+
+        <h2>
+            Vocês concluíram o Escape Ergo e estão na Fase 4!
+        </h2>
+
+        <div class="final-time">
+            ⏱ <span id="finalTime"></span>
+        </div>
+
+        <div class="feedback">
+
+            <h3
+            style="
+            margin-bottom:15px;
+            color:#0b6d3f;
+            ">
+                🧠 Feedback Inteligente
+            </h3>
+
+            <ul>
+
+                <li>
+                    ✔ Monitor deve estar na altura dos olhos.
+                </li>
+
+                <li>
+                    ✔ Punhos devem permanecer neutros.
+                </li>
+
+                <li>
+                    ✔ Braços devem permanecer apoiados na mesa.
+                </li>
+
+                <li>
+                    ✔ A cadeira deve permitir que os pés permaneçam apoiados no chão.
+                </li>
+
+                <li>
+                    ✔ Coluna deve permanecer alinhada.
+                </li>
+
+            </ul>
+
+        </div>
+
+        <button
+        class="btn"
+        style="margin-top:25px;"
+        onclick="location.reload()">
+
+            🔄 Jogar Novamente
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* TIMER */
+
+let seconds = 0;
+
+function updateTimer(){
+
+    seconds++;
+
+    let min = Math.floor(seconds / 60);
+
+    let sec = seconds % 60;
+
+    if(min < 10) min = "0" + min;
+
+    if(sec < 10) sec = "0" + sec;
+
+    document.getElementById("timer")
+    .innerHTML = min + ":" + sec;
+
+}
+
+let interval = setInterval(updateTimer,1000);
+
+/* GAME */
+
+let found = 0;
+
+const identified = {
+    monitor:false,
+    posture:false,
+    wrist:false,
+    chair:false
+};
+
+function identify(type){
+
+    if(identified[type]) return;
+
+    identified[type] = true;
+
+    found++;
+
+    document.getElementById("counter")
+    .innerHTML =
+    found + " / 4 erros encontrados";
+
+    /* monitor */
+
+    if(type === "monitor"){
+
+        document.getElementById("status-monitor")
+        .classList.remove("hidden");
+
+        document.getElementById("status-monitor")
+        .classList.add("success");
+
+    }
+
+    /* postura */
+
+    if(type === "posture"){
+
+        document.getElementById("status-posture")
+        .classList.remove("hidden");
+
+        document.getElementById("status-posture")
+        .classList.add("success");
+
+    }
+
+    /* punho */
+
+    if(type === "wrist"){
+
+        document.getElementById("status-wrist")
+        .classList.remove("hidden");
+
+        document.getElementById("status-wrist")
+        .classList.add("success");
+
+    }
+
+    /* cadeira */
+
+    if(type === "chair"){
+
+        document.getElementById("status-chair")
+        .classList.remove("hidden");
+
+        document.getElementById("status-chair")
+        .classList.add("success");
+
+    }
+
+    /* liberar ajustes */
+
+    if(found === 4){
+
+        document.getElementById("adjustments")
+        .style.display = "block";
+
+    }
+
+}
+
+/* AJUSTES */
+
+let monitorFixed = false;
+let chairFixed = false;
+let postureFixed = false;
+let armsFixed = false;
+
+/* monitor */
+
+function fixMonitor(){
+
+    document.getElementById("monitor")
+    .style.top = "290px";
+
+    monitorFixed = true;
+
+}
+
+/* cadeira */
+
+function fixChair(){
+
+    /* cadeira sobe */
+
+    document.getElementById("chair")
+    .style.bottom = "200px";
+
+    /* avatar sobe */
+
+    document.getElementById("avatar")
+    .style.bottom = "80px";
+
+    chairFixed = true;
+
+}
+
+/* postura */
+
+function fixPosture(){
+
+    document.getElementById("body")
+    .style.transform = "rotate(0deg)";
+
+    postureFixed = true;
+
+}
+
+/* braços */
+
+function fixArms(){
+
+    /* braço apoiado na mesa */
+
+    document.getElementById("arm")
+    .style.transform = "rotate(0deg)";
+
+    document.getElementById("arm")
+    .style.top = "150px";
+
+    /* antebraço apoiado */
+
+    document.getElementById("forearm")
+    .style.transform = "rotate(0deg)";
+
+    document.getElementById("forearm")
+    .style.top = "185px";
+
+    document.getElementById("forearm")
+    .style.left = "235px";
+
+    armsFixed = true;
+
+}
+
+/* finalizar */
+
+function finishGame(){
+
+    if(
+        monitorFixed &&
+        chairFixed &&
+        postureFixed &&
+        armsFixed
+    ){
+
+        clearInterval(interval);
+
+        document.getElementById("popup")
+        .style.display = "flex";
+
+        document.getElementById("finalTime")
+        .innerHTML =
+        document.getElementById("timer").innerHTML;
+
+    }else{
+
+        alert(
+        "⚠ Ainda existem ajustes ergonômicos pendentes."
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
